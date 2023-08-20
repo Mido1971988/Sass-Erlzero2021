@@ -1,0 +1,6 @@
+* Sass:
+    - stands for Syntactically Awesome Stylesheet
+    - Sass is an extension to CSS
+    - Sass lets you use features that do not exist in CSS, like variables, nested rules, 
+    mixins, imports, inheritance, built-in functions, and other stuff.
+
