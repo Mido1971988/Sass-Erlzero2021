@@ -5,6 +5,6 @@
     mixins, imports, inheritance, built-in functions, and other stuff.
 
 * to compile sass file ( main.scss ) to css file ( main.css ) will use live sass compiler extension 
-    or use apps like koala or prepros 
+    or use apps like koala or prepros .
 
 
