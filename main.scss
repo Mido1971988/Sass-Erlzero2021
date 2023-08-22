@@ -1,5 +1,291 @@
-@for $i from 1 through 50{
-    .class-#{$i}{
-        font-size: 10px + $i;
+// import global rules
+@use "./sass/layout/global-rules";
+
+// import contact
+@use "./sass/pages/contact";
+
+// import variables
+// @use "./sass/variables/colors" as *;
+@use "./sass/variables/colors";
+
+
+// @for $i from 1 through 50{
+//     .class-#{$i}{
+//         font-size: 10px + $i;
+//     }
+// }
+
+:root { 
+    --main-color : red;
+}
+
+//Global Variable
+$alt-color : green;
+
+header{
+    background-color: var(--main-color);
+    background-color: $alt-color;
+}
+
+footer{
+    // local variable 
+    $alt-color: black;
+    color:$alt-color
+}
+
+sidebar{
+    // background-color: $main;
+    // color: $alt;
+    background-color: colors.$main;
+    color: colors.$alt;
+}
+
+// Nesting & Parent Element
+
+.parent {
+    font-weight: bold;
+    .child {
+        font-size: 20px;
+    .grand-child {
+        font-size: 15px;
+        }
     }
 }
+
+.parent-one,
+.parent-two {
+    padding: 20px;
+    .child {
+        padding: 10px;
+    }
+}
+
+.parent > {
+    .child {
+        font-size: 20px;
+    }
+    .test {
+        font-weight: bold;
+    }
+}
+
+.parent {
+    > .child {
+        font-size: 20px;
+    }
+    .test {
+        font-weight: bold;
+    }
+    + p {
+        font-size: 15px;
+    }
+}
+
+.parent {
+    > {
+        .element-one {
+        font-size: 10px;
+        }
+        .element-two {
+        font-size: 10px;
+        }
+    }
+    .not-direct-child {
+        font-weight: bold;
+    }
+}
+
+.box {
+    .title {
+        font-size: 10px;
+    }
+    .description {
+        font-size: 8px;
+    }
+    &.red {
+        color: red;
+    }
+    &.green {
+        color: green;
+    }
+    &:hover {
+        background-color: #eee;
+    }
+    &:hover .title {
+        font-weight: bold;
+    }
+    :not(&) {
+        font-weight: normal;
+    }
+    [dir="rtl"] & {
+        direction: rtl;
+    }
+}
+
+// Property Declarations And Placeholder
+
+// font and margin shorthand grouping
+.box {
+    font-size: 20px;
+    font: {
+        size: 15px;
+        weight: bold;
+    }
+    padding: 10px;
+    margin: auto {
+        top: 10px;
+        bottom: 15px;
+    }
+}
+
+// you can use .main-box if you need it as class for element 
+// but if you will not use it on element you can use placeholder by using %
+%main-box {
+    background-color: white;
+    padding: 15px;
+    border: 1px solid #ccc;
+}
+
+// @extend means will copy css from %main-box and put it here also
+.ads {
+    @extend %main-box;
+    font-size: 20px;
+    color: red;
+}
+
+.article {
+    font-size: 22px;
+    @extend %main-box;
+    color: green;
+}
+
+// Assignments from 1 to 6 Lesson 
+
+// assignmet 1 :
+
+.content{
+    > .box{
+        padding: 15px;
+        > .title{
+            font-size: 18px;
+        }
+    }
+    .cat{
+        padding: 15px;
+    }
+    &.premium::before{
+        content: "Premium Box";
+    }
+    &.premium::hover{
+        background-color: #eee;
+    }
+}
+
+// assignment 2 : 
+.class {
+    > .child{
+        padding: 10px;
+    }
+}
+
+// assignment 3 :
+.class{
+    font: {
+        weight: bold;
+        size: 20px;
+    }
+}
+
+// assignment 4
+.parent {
+    & + .sibling {
+        margin: auto {
+        top: 10px;
+    }
+    & ~ .last {
+        padding: 10px;
+        }
+    }
+}
+
+// assignment 5
+
+.widget {
+    background-color: white;
+    padding: 20px;
+}
+.main-border {
+    border: 1px solid #CCC
+}
+.my-class {
+    @extend .widget;
+    @extend .main-border;
+    font-weight: bold;
+    margin: 20px auto;
+}
+
+// assignment 6
+
+%widget {
+    background-color: white;
+    padding: 20px;
+}
+%main-border {
+    border: 1px solid #CCC;
+}
+.my-class {
+    font-weight: bold;
+    margin: 20px auto;
+    & {
+        @extend %widget;
+        @extend %main-border;
+    }
+} 
+
+// assignment 7
+.box{
+    h2 , p{
+        font-size: 20px;
+    }
+}
+
+@media(max-width:575px){
+    .box {
+        h2 , p{
+            font-size: 16px;
+            span{
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+// assignment 8
+
+$red: #e91e63;
+$green: #009688;
+
+// Add What You Want Here
+$link-color : $red;
+$link-hover : $green;
+
+// Do Not Edit Here
+.box a {
+    color: $link-color;
+    &:hover {
+        color: $link-hover;
+    }
+}
+
+// assignment 9
+// assignment 10
+box {
+    font-size: 20px;
+    &-holder {
+        width: 1000px;
+    &-content {
+        margin: auto;
+        }
+    }
+}
+

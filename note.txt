@@ -7,4 +7,27 @@
 * to compile sass file ( main.scss ) to css file ( main.css ) will use live sass compiler extension 
     or use apps like koala or prepros .
 
+* Import : 
+    to compile css from different sass files (_global-rules.scss and _contact.scss) to one css file ( main.css) : 
+        [1] add _ at the beginning of name of file ( _ means ignore this file and not compile it as a seperate css file)
+        [2] @use "./path of file" 
+
+
+* variables : 
+    - difference between css variables and sass variables : 
+    [1] css variables : written in :root{--main-color:red}
+        and you can access it by writing var(--main-color)
+        but in compiled file (main.css) will be shown as var(--main-color) not the accual color
+    [2] sass variables : written like $alt-color:green
+        and you can access it directly by writing the name $alt-color
+        and have global or local scope ( check main.scss)
+        and in compiled file will be shown as accual color not $alt-color
+
+    - you can import variable from another file but you have two options to do this : 
+    [1] @use "./sass/variables/colors" as *; then use name of variable (like in sidebar{color:$alt})
+    [2] @use "./sass/variables/colors"; then use colors.name of variable ( like sidebar{color:colors.$alt})
+
+* Nesting (check it on main.scss file)
+
+* Property Declarations And Placeholder (check it on main.scss file)
 
