@@ -289,3 +289,371 @@ box {
     }
 }
 
+// Control Flow => If And Else
+
+$theme: "light";
+
+.page {
+    @if $theme == "light" {
+        background-color: white;
+        color: #444;
+    } @else if $theme == "dark" {
+        background-color: #444;
+        color: white;
+    } @else {
+        @error " #{$theme} is Invaild Theme "
+    }
+}
+
+$rounded: false;
+
+.box {
+    @extend %main-box;
+    // 6px if $rounded is true if false will be null and sass will not write border-radius 
+    // if value is null so you will not find .box in css file
+    border-radius: if($rounded, 6px, null);
+}
+
+// Interpolation ( same like  template literals ${} ) you can use variable or function
+$company: "falcon";
+$position: "right";
+
+.ad-#{$company}-#{unique-id()} {
+    font-size: 20px;
+    background-image: url("imgs/#{$company}.png");
+    #{$position}: 0;
+}
+.ad-#{unique-id()} {
+    font-weight: bold;
+}
+
+// Comments
+
+// This Comment Will Not Show In CSS File
+
+/* This Comment Will Show In CSS File But Not In Compressed Mode */
+
+/*! This Comment Will Show In CSS File And In Compressed Mode */
+
+.box /* Multiple
+Lines
+Comment */ {
+  font-size: 20px; // Inline Comment
+}
+
+/* This Comment Contains Interpolation => #{$company} */
+
+// to write documentation
+/// Function To Do Bla Bla Bla
+///
+/// @param {num}
+/// The Number To Deal With
+/// @return {int}
+
+
+
+// assignment from 7 to 10 Lessons 
+
+//assignment 1
+$main: "school";
+$child: "box";
+$language: "en"; // English
+$gap: 20px;
+
+
+.school {
+    padding: $gap;
+    direction: if($language , ltr , rtl);
+    margin-left: $gap;
+    .#{$main}-#{$child}{
+        padding: calc($gap / 2);
+    }
+    &::hover .#{$main}-#{$child}{
+        background-color: #eee;
+    }
+}
+
+//assignment 2
+
+$main-color: red;
+$alt-color: blue;
+
+/* Theme Version: 1.0 */
+/* Website Theme Main Color Is: #{$main-color} */
+/* Website Theme Alternate Color Is: #{$alt-color}  */
+
+// assignment 3
+// SASS Code
+$number: 4;
+
+.class {
+    color: if($number > 8 , blue , null);
+}
+.class {
+    color: if($number > 5 , green , red);
+}
+
+// assignment 4
+// SASS Code
+$number: 10;
+$color: red;
+$theme: light;
+
+// Write If Condition Code Here
+
+// Output
+.class {
+    @if ( $number > 5 and $color == red and not ($theme == dark)) {
+        color: red;
+    }
+    
+}
+
+// assignment 5
+$number : 10;
+.box{
+    @if $number == 10 or $number == 9 {
+        background-color: if($number == 10 or $number == 9 , #eee , null);
+        text-align: if($number == 8 or $number == 9 , null , center);
+    } 
+}
+
+// Mixin And Include
+
+@mixin list-reset {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+@mixin circle($dimensions) {
+    border-radius: 50%;
+    width: $dimensions;
+    height: $dimensions;
+}
+
+@mixin centering {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+ul.links {
+    @include list-reset;
+}
+
+.circle-100 {
+    @include circle(100px);
+    background-color: red;
+    color: white;
+}
+
+.circle-200 {
+    @include circle(200px);
+    background-color: red;
+    color: white;
+}
+
+.center-circle {
+    @include circle(400px);
+    @include centering;
+}
+
+// Loop => For
+
+@for $i from 1 through 10 {
+    .class-#{$i} {
+        font-size: #{$i + 10px};
+    }
+}
+
+$dimensions: 0;
+
+@for $i from 1 through 10 {
+    .circle-#{100 + $dimensions} {
+      // you can use + without calc() in sass
+        width: $dimensions + 100px;
+        height: $dimensions + 100px;
+        border-radius: 50%;
+    }
+    $dimensions: $dimensions + 100;
+}
+
+// Each + Maps
+
+$themes: red, green, blue, orange;
+
+@each $theme in $themes {
+    .#{"" + $theme}-theme {
+        .product {
+            background-color: white;
+            border-bottom: 2px solid $theme;
+        .title {
+            color: $theme;
+            font-weight: bold;
+        }
+    }
+    }
+}
+
+$socials: (
+    "facebook": blue,
+    "youtube": red,
+    "github": black,
+    "twitter": indianred,
+);
+
+// like for..in loop on objects
+@each $name, $color in $socials {
+    .#{$name} {
+        background-color: $color;
+        color: white;
+        &::before {
+            content: $name;
+        }
+    }
+}
+
+$classes: "one" 20px red, "two" 15px green, "three" 22px blue;
+
+  // like destructuring
+@each $class, $font, $color in $classes {
+    .#{$class} {
+        font-size: $font;
+        background-color: $color;
+        color: white;
+        padding: calc($font / 2);
+    }
+}
+// Loop => While
+
+$start: 1;
+
+@while $start <= 10 {
+    .width-#{$start * 100} {
+        width: $start * 100px;
+        height: calc(($start * 100px) / 2);
+    }
+    $start: $start + 1;
+}
+
+// Create Grid System
+
+$grid_cols: 12;
+
+@for $i from 1 through $grid_cols {
+    .col-#{$i} {
+        width: percentage(calc($i / $grid-cols));
+    }
+}
+
+// Assignment from 11 to 15 Lessons
+
+//assignmet 1
+@mixin arrow($direction){
+    content: "";
+    position: absolute;
+    border: 20px solid transparent;
+    @if($direction == "top"){
+        transform: translateX(-50%);
+        left: 50%;
+        top: -40px;
+        border-bottom-color: red;
+    }@else if($direction == "right"){
+        transform: translateY(-50%);
+        right: -40px;
+        top: 50%;
+        border-left-color: red;
+    }@else if($direction == "bottom"){
+        transform: translateX(-50%);
+        left: 50%;
+        bottom: -40px;
+        border-top-color: red;
+    }@else if($direction == "left"){
+        transform: translateY(-50%);
+        top: 50%;
+        left: -40px;
+        border-right-color: red;
+    }
+    
+}
+.element {
+    &:before {
+        @include arrow("right");
+    }
+}
+
+// assignmet 2
+$grid_cols: 16;
+
+@for $i from 1 through $grid_cols {
+    .col-#{$i} {
+        width: percentage(calc($i / $grid-cols));
+    }
+}
+
+// assignmet 3
+$names:
+    "books" 20px red 18,
+    "games" 30px green 18,
+    "dvds" 20px blue;
+
+@each $name , $padding , $color , $font in $names {
+    .#{$name} {
+        padding: $padding;
+        font-size: if($font , $font , 16px);
+        border-bottom: 2px solid $color;
+        color: #444;
+    }
+}
+
+// assignment 4
+$init: 1;
+
+@while $init <= 10 {
+    .circle-#{$init * 100} {
+        width: $init * 100px;
+        height: $init * 100px;
+        border-radius: calc(($init * 100px) / 2);
+    }
+    $init: $init + 1;
+}
+
+// assignment 5
+
+@for $i from 1 through 10 {
+    .circleFor-#{$i * 100} {
+        width: $i * 100px;
+        height: $i * 100px;
+        border-radius: calc(($i * 100px) / 2);
+    }
+}
+
+// assignment 6 
+// Write Mixin Code Here
+// @mixin placeholder{
+@mixin placeholder{
+    @each $vendor in ('.placeholder', ':-moz-placeholder', '::-moz-placeholder', ':-ms-input--placeholder', ':-webkit-input--placeholder') {
+        textarea#{$vendor}{color : #777};
+    };
+}
+
+@include placeholder;
+
+// assignment 7
+// Write Mixin Code Here
+@mixin flex-center($width:400px){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $width;
+}
+// Using
+.box-one {
+    @include flex-center(500px);
+}
+.box-two {
+    @include flex-center;
+}
+

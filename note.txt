@@ -31,3 +31,27 @@
 
 * Property Declarations And Placeholder (check it on main.scss file)
 
+* if & else (check it on main.scss file)
+
+* Interpolation (check it on main.scss file)
+
+* Comments (check it on main.scss file)
+
+* Mixin And Include :
+    - like extend but in mixin you can add parameter so will be dynamic like in (@include circle(100px);)
+
+* For - Loop 
+    - Difference between : 
+        @for $i from 1 through 10
+        And
+        @for $i from 1 to 10
+
+    - through number 10 is included in loop but to number 10 not included in loop 
+
+* Each (check it on main.scss file)
+
+* While Loop (check it on main.scss file)
+
+* Create Grid System (check it on main.scss file)
+
+
