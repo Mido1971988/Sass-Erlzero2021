@@ -54,4 +54,11 @@
 
 * Create Grid System (check it on main.scss file)
 
+* Function (check it on main.scss file)
+
+* Mixin and content (check it on main.scss file)
+    @content means that when you invoke mixin will write the content not when you create the mixin
+
+* Mixin with media quieries (check it on main.scss file)
+
 
